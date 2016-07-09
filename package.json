@@ -1,0 +1,48 @@
+{
+  "name": "contrib-subgen-react-webpack-container",
+  "version": "0.0.0",
+  "description": "A Container Subgenerator for Generator React Webpack",
+  "main": "generators/container/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sthzg/contrib-subgen-react-webpack-container.git"
+  },
+  "author": "@sthzg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sthzg/contrib-subgen-react-webpack-container/issues"
+  },
+  "files": [
+    "generators/app",
+    "generators/container"
+  ],
+  "homepage": "https://github.com/sthzg/contrib-subgen-react-webpack-container#readme",
+  "devDependencies": {
+    "babel-eslint": "^6.1.0",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
+    "eslint": "^3.0.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.10.2",
+    "fs-extra": "^0.30.0",
+    "generator-react-webpack": "^4.0.1-1",
+    "istanbul": "^0.4.4",
+    "mocha": "^2.5.3",
+    "mocha-lcov-reporter": "^1.2.0",
+    "yeoman-assert": "^2.2.1",
+    "yeoman-generator": "^0.23.4",
+    "yeoman-test": "^1.4.0"
+  },
+  "peerDependencies": {
+    "generator-react-webpack": ">=4.0.1-1"
+  },
+  "scripts": {
+    "test": "mocha",
+    "test:watch": "mocha -w",
+    "test:cover": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --report html --report text",
+    "test:travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "release:major": "npm version prerelease && git push --follow-tags && npm publish --tag poc",
+    "release:minor": "npm version prerelease && git push --follow-tags && npm publish --tag poc",
+    "release:patch": "npm version prerelease && git push --follow-tags && npm publish --tag poc"
+  }
+}

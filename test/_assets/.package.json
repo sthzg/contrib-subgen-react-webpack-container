@@ -1,0 +1,6 @@
+{
+  "name": "contrib-subgen-react-webpack-container",
+  "dependencies": {
+    "generator-react-webpack": ">=4.0.1-1"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "comma-dangle": 0,
+    "padded-blocks": 0,
+    "react/prefer-stateless-function": 0,
+    "no-underscore-dangle": [ "error", { "allowAfterThis": true }],
+  }
+}

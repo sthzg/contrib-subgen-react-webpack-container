@@ -50,6 +50,7 @@
     "release:patch": "npm version patch && npm publish && git push --follow-tags"
   },
   "dependencies": {
+    "ejs": "^2.4.2",
     "esformatter": "^0.9.5",
     "esformatter-jsx": "^7.0.1",
     "gulp-filter": "^4.0.0",

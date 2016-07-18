@@ -1,9 +1,5 @@
 'use strict';
 
-const before                      = require('mocha').before;
-const describe                    = require('mocha').describe;
-const it                          = require('mocha').it;
-
 const assert                      = require('yeoman-assert');
 const chai                        = require('chai').assert;
 const fs                          = require('fs-extra');

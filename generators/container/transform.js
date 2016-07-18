@@ -28,6 +28,12 @@ function buildCmpRender(cmpName) {
 }
 
 
+/**
+ * Transforms the container component that is generated from the original generator to represent a container.
+ *
+ * @param {string} cntName
+ * @param {string} cmpName
+ */
 module.exports = function (cntName, cmpName) {
   return through.obj(function (file, encoding, callback) {
 

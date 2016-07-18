@@ -13,9 +13,8 @@ const gulpfilter                  = require('gulp-filter');
 const lodash                      = require('lodash');
 const path                        = require('path');
 
+const containerTest               = require('./containerTest');
 const transformCnt                = require('./transform');
-
-esformatter.register(require('esformatter-jsx'));
 
 
 class ContainerGenerator extends generators.Base {
@@ -63,6 +62,14 @@ class ContainerGenerator extends generators.Base {
   }
 
   writing() {
+
+    // Swap the test file  for the container with our customized template
+    const tstFilter = gulpfilter(['**/*ContainerTest.js'], { restore: true });
+    this.registerTransformStream([
+      tstFilter,
+      containerTest(this.cntName, this.cmpName, this.fs.read(this.templatePath('ContainerTest.js.ejs'))),
+      tstFilter.restore
+    ]);
 
     if (this.options.component) {
       const cntFilter = gulpfilter(['**/*Container.js'], { restore: true });

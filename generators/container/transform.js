@@ -10,10 +10,19 @@ const lodash                      = require('lodash');
 const through                     = require('through2');
 
 
+/**
+ * Builds an AST Node for the component import statement.
+ * @param cmpName
+ * @returns {*}
+ */
 function buildCmpImportNode(cmpName) {
   return acorn.parse(`import ${cmpName} from './${cmpName}';`, { sourceType: 'module' }).body[0];
 }
 
+/**
+ * Change return statement in Container's render method.
+ * @param cmpName
+ */
 function buildCmpRender(cmpName) {
   return acorn.parse(`<${cmpName} />`, { plugins: { jsx: true } });
 }
@@ -59,11 +68,11 @@ module.exports = function (cntName, cmpName) {
         }
       },
       "jsx": {
-        "formatJSX": true,
+        "formatJSX": false,
         "attrsOnSameLineAsTag": false,
         "maxAttrsOnTag": 3,
-        "firstAttributeOnSameLine": true,
-        "formatJSXExpressions": true,
+        "firstAttributeOnSameLine": false,
+        "formatJSXExpressions": false,
         "JSXExpressionsSingleLine": true,
         "alignWithFirstAttribute": false,
         "spaceInJSXExpressionContainers": " ",
@@ -71,7 +80,13 @@ module.exports = function (cntName, cmpName) {
         "htmlOptions": {}
       }
     });
-    const formatted = esformatter.format('\'use strict\';\n\n' + jsFromAst, styleOpts);
+
+    const esFormatted = esformatter.format(jsFromAst, styleOpts);
+
+    // With the existing tools I haven't found a way to format <Foo/> as <Foo />. The space before the closing
+    // bracket is required for the Airbnb eslint rules to validate the file. The following replace() just adds that
+    // in manually. Hopefully this can be replaced with a slution integrated into the above tooling sometime.
+    const formatted = esFormatted.replace(/(<[\w]*)(\/>)/g, '$1 $2');
 
     file.contents = new Buffer(formatted);
 

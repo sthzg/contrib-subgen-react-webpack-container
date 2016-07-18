@@ -7,12 +7,9 @@
 const acorn                       = require('acorn-jsx');
 const escodegen                   = require('escodegen-wallaby');
 const esformatter                 = require('esformatter');
-const esDefaultOpts               = require('esformatter/lib/preset/default.json');
 const fs                          = require('fs');
 const generators                  = require('yeoman-generator');
 const gulpfilter                  = require('gulp-filter');
-const gulpif                      = require('gulp-if');
-const jp                          = require('jsonpath');
 const lodash                      = require('lodash');
 const path                        = require('path');
 
@@ -56,6 +53,11 @@ class ContainerGenerator extends generators.Base {
     this.composeWith('react-webpack:component', {
       options: Object.assign({}, this.options, { nostyle: true }),
       args: this.args
+    });
+
+    this.composeWith('react-webpack:component', {
+      options: Object.assign({}, this.options),
+      args: [this.cmpName]
     });
 
   }

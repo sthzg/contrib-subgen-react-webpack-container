@@ -17,14 +17,6 @@ class ContainerGenerator extends generators.Base {
 
   constructor(...args) {
     super(...args);
-  }
-
-  static hasCntPostfix(cntName) {
-    const regex = new RegExp('[c|C]ontainer$');
-    return regex.exec(cntName) !== null;
-  }
-
-  initializing() {
 
     this.argument(
       'cntName', {
@@ -37,6 +29,14 @@ class ContainerGenerator extends generators.Base {
         desc: 'Create a Root Component and render it from the Container'
       }
     );
+  }
+
+  static hasCntPostfix(cntName) {
+    const regex = new RegExp('[c|C]ontainer$');
+    return regex.exec(cntName) !== null;
+  }
+
+  initializing() {
 
     if (!ContainerGenerator.hasCntPostfix(this.cntName)) {
       this.cntName = this.cntName + 'Container';
@@ -63,7 +63,7 @@ class ContainerGenerator extends generators.Base {
 
     if (this.options.component) {
 
-      // Register transformation chain to swap the test file  for the container with our customized template
+      // Register transformation chain to swap the test file for the container with our customized template
       const tstFilter = gulpfilter(['**/*ContainerTest.js'], { restore: true });
       this.registerTransformStream([
         tstFilter,
@@ -71,7 +71,7 @@ class ContainerGenerator extends generators.Base {
         tstFilter.restore
       ]);
 
-      // Register transformation chain to modify the generated container to include our component.
+      // Register transformation chain to modify the generated container to include our component
       const cntFilter = gulpfilter(['**/*Container.js'], { restore: true });
       this.registerTransformStream([
         cntFilter,
